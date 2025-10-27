@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!-- Daz sierpinski triangle with different colour for each iteration -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>
+
+function draw_sierpinski_triangle() {
+	var width = get_selected("width");
+	var height = height_for_equilateral_triangle_of_width(width);
+	var Ax = 0, Ay = height, Bx = width/2, By = 0, Cx = width, Cy = height;
+	var coords = ""+Ax+","+Ay+" "+Bx+","+By+" "+Cx+","+Cy+" "+Ax+","+Ay;
+        var iterations = parseInt(document.getElementById("iterations").value);
+	document.getElementById('iterations').value = parseInt(document.getElementById('iterations').value) + 1;
+	if (iterations == 0) { 
+		drawTriangle(coords,0); 
+		return; 
+	}
+	draw_inverted_triangle_within(Ax,Ay,Bx,By,Cx,Cy,0,iterations);
+}
+
+function draw_inverted_triangle_within(Ax,Ay,Bx,By,Cx,Cy,iteration,iterations) {
+	var ABx = half_way_between(Ax,Bx), ABy = half_way_between(Ay,By);
+	var BCx = half_way_between(Bx,Cx), BCy = half_way_between(Ay,By);
+	var CAx = half_way_between(Cx,Ax), CAy = half_way_between(Cy,Ay);
+	var coords = ""+ABx+","+ABy+" "+BCx+","+BCy+" "+CAx+","+CAy+" "+ABx+","+ABy+" "+BCx+","+BCy;
+	iteration++;
+	if (iteration >= iterations) { 
+		drawTriangle(coords,iteration); 
+		return; 
+	}
+	draw_inverted_triangle_within(Ax,Ay,ABx,ABy,CAx,CAy,iteration,iterations);
+	draw_inverted_triangle_within(ABx,ABy,Bx,By,BCx,BCy,iteration,iterations);
+	draw_inverted_triangle_within(CAx,CAy,BCx,BCy,Cx,Cy,iteration,iterations);
+}
+
+function color_for(iteration) {
+	color = ["red","lime","blue","maroon","green","navy","yellow","aqua","fuchsia","olive","teal","purple","silver","black"];
+	return color[iteration];
+}
+
+function fillColour() {
+        var show = document.getElementsByName("show-fill");
+        var showValue;
+        for(var i = 0; i < show.length; i++){ if(show[i].checked){ showValue = show[i].value; } }
+        return parseInt(showValue);
+}
+
+function drawTriangle(coords,iteration) {
+	var svgns = "http://www.w3.org/2000/svg";
+	var svg = document.getElementById('svg');
+	var shape = document.createElementNS(svgns, "polyline");
+	shape.setAttributeNS(null, "points", coords);
+//	shape.setAttributeNS(null, "fill", "none");
+	if (fillColour()) {
+		shape.setAttributeNS(null, "fill", color_for(iteration));
+	}
+	shape.setAttributeNS(null, "stroke-linejoin", "bevel");
+	shape.setAttributeNS(null, "stroke", color_for(iteration));
+	svg.appendChild(shape);
+}
+
+function half_way_between(v1,v2) {
+	return Math.floor((v1+v2)/2);
+}
+
+function height_for_equilateral_triangle_of_width(width) {
+	height = Math.sqrt(Math.pow(width,2) - Math.pow(width/2,2));
+	return Math.round(height);
+}
+
+function get_selected(dropdown) {
+	var width = document.getElementById(dropdown);
+	return parseInt(width.options[width.selectedIndex].value);
+}
+
+function clear_svg() {  // this method is slow if lots of images have been drawn
+        while (svg.lastChild) { svg.removeChild(svg.lastChild); }
+        var iterations = parseInt(document.getElementById("iterations").value);
+	if (iterations >= 13) {
+        	document.getElementById("iterations").value = 0;
+	}
+}
+function restart() {
+	window.location.reload(false);
+}
+
+function record_touches_or_clicks(object) {
+//        object.addEventListener("touchstart", draw_sierpinski_triangle, false);
+        object.addEventListener("click", draw_sierpinski_triangle, false);
+}
+
+</script>
+
+<style>
+	button,select,input.text {
+        	-webkit-appearance: none; 
+		height:30px; 
+		vertical-align:middle; 
+/*		margin:5px; 		*/
+		background-color:SteelBlue; 
+		font-size:16px; 
+		color :white;
+		text-align:center;
+	}
+	body {
+	        font-size:26px;
+	        margin:0;
+	        background-color:black;
+		color: SteelBlue;
+		font-family: Calibri, Arial;
+	}
+</style>
+</head>
+
+
+
+<body>
+
+<div style="vertical-align:top; float:right; position:fixed;">
+ <form action="javascript:draw_sierpinski_triangle();">&nbsp;
+  Iterations:
+  <select name="iterations" id="iterations" autofocus> 
+   <option value=0 selected>0</option>
+   <option value=1>1</option> 
+   <option value=2>2</option> 
+   <option value=3>3</option> 
+   <option value=4>4</option> 
+   <option value=5>5</option> 
+   <option value=6>6</option> 
+   <option value=7>7</option> 
+   <option value=8>8</option> 
+   <option value=9>9</option> 
+   <option value=10>10</option> 
+   <option value=11>11</option> 
+   <option value=12>12</option> 
+   <option value=12>12</option> 
+  </select>&nbsp;
+  Width:      
+  <select name="width" id="width"> 
+   <option value=256>256</option>
+   <option value=512>512</option> 
+   <option value=1024 selected>1024</option> 
+   <option value=2048>2048</option> 
+  </select>&nbsp;
+ Fill:
+  <input type="checkbox" style="transform: scale(2.0);" id="show-fill" name="show-fill" checked="true" value="1">
+<!--
+  <input type="radio" name="show-fill" id="show-fill" value="1" checked>yes
+  <input type="radio" name="show-fill" id="show-fill" value="0">no&nbsp;
+ -->
+  &nbsp;&nbsp;
+  <button type="button" onclick="clear_svg();">wipe bum</button>&nbsp;&nbsp;
+  <button type="button" onclick="restart()">RESET</button>
+ </form>
+</div>
+<br/>
+
+<svg id="svg" x="100" y="10" width="2148px" height="1920px" style="margin-top:5px; background-color: black;"></svg>
+
+<script>record_touches_or_clicks(svg);</script>
+
+</body>
+
+
+
+</html>

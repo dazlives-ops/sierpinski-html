@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!-- Daz sierpinski using circles -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>
+function draw_sierpinski_triangle() {
+/* retrieve user inputs */
+	var radius = parseInt(document.getElementById("radius").value);
+	var iterations = parseInt(document.getElementById("iterations").value);
+	var width = parseInt(document.getElementById("width").value);
+	var edgeColour = get_edge_choice();
+/* determine height required */
+	var height = height_for_equilateral_triangle_of_width(width);
+/* determine corner positions */
+	var redCornerX = 0, redCornerY = height, greenCornerX = width/2, greenCornerY = 0, blueCornerX = width, blueCornerY = height;
+/* start at a corner */
+	var newX = redCornerX, newY = redCornerY;
+	var svgns = "http://www.w3.org/2000/svg";
+	var svg = document.getElementById('svg');
+/* loop choosing a corner at random */
+	for (i = 0; i <= iterations; i++) { 
+		var randX, randY;
+		var point = Math.floor((Math.random() * 3) + 1);
+		if (point == 1) { randX = redCornerX, randY = redCornerY; }
+		else if (point == 2) { randX = greenCornerX, randY = greenCornerY; }
+		else { randX = blueCornerX, randY = blueCornerY; }
+/* move half way towards that corner */
+		newX = Math.round((newX + randX) / 2);
+		newY = Math.round((newY + randY) / 2);
+/* determine colour based on proximity to corners */
+		var intensityOfRed   = brightness(width,newX,newY,redCornerX,redCornerY);
+		var intensityOfGreen = brightness(width,newX,newY,greenCornerX,greenCornerY);
+		var intensityOfBlue  = brightness(width,newX,newY,blueCornerX,blueCornerY);
+/* draw circle at position */
+		var shape = document.createElementNS(svgns, "polygon");
+//		shape.setAttributeNS(null, "points", '"'+newX+','newY+' '+newX+radius+','+newY+radius+' '+newX+radius+','+newY+'"');
+x1=newX; y1=newY+radius*2; x2=newX+radius; y2=newY; x3=newX+2*radius; y3=newY+2*radius; 
+		shape.setAttributeNS(null, "points", x1+","+y1 +" "+ x2+","+y2 +" "+ x3+","+y3);
+                if (fillColour()) {
+			shape.setAttributeNS(null, "fill", "rgb("+intensityOfRed+","+intensityOfGreen+","+intensityOfBlue+")");
+		}
+		if (edgeColour) {
+			shape.setAttributeNS (null, "stroke", edgeColour);
+		}
+                if (!edgeColour && !fillColour()) {
+			shape.setAttributeNS (null, "stroke", "rgb("+intensityOfRed+","+intensityOfGreen+","+intensityOfBlue+")");
+		}
+		svg.appendChild(shape);
+	}
+}
+function height_for_equilateral_triangle_of_width(width) {
+	height = Math.sqrt(Math.pow(width,2) - Math.pow(width/2,2));
+	return Math.round(height);
+}
+function brightness(width,x,y,cornerX,cornerY) {
+	return 255 - Math.round( (255/width) * (Math.sqrt( Math.pow(cornerX-x,2) + Math.pow(cornerY-y,2)) ) );
+}
+function get_edge_choice() {
+        var show = document.getElementsByName("show-edges");
+        var showValue;
+        for(var i = 0; i < show.length; i++){ if(show[i].checked){ showValue = show[i].value; } }
+        return showValue;
+}
+
+function fillColour() {
+        var show = document.getElementsByName("show-fill");
+        var showValue;
+        for(var i = 0; i < show.length; i++){ if(show[i].checked){ showValue = show[i].value; } }
+        return parseInt(showValue);
+}
+
+function restart() {
+        window.location.reload(false);
+}
+
+function handle_touches_or_clicks(object) {
+//	object.addEventListener("touchstart", draw_sierpinski_triangle, false);
+	object.addEventListener("click", draw_sierpinski_triangle, false);
+}
+
+</script>
+
+<style>
+button,select,input.text {
+	-webkit-appearance: none; 
+	height:30px; 
+	vertical-align:middle; 
+	margin:5px; 
+	background-color:Moccasin; 
+	font-size:16px; 
+	color:olive;
+}
+body {
+        font-size:26px;
+        margin:0;
+        background-color:black;
+	color:Moccasin;
+	font-family: Calibri, Arial;
+
+}
+@media only screen and (max-width: 1200px) {
+	body {
+		font-size:14px;
+	}
+	button,select,input.text {
+	        -webkit-appearance: none;
+		height:30px;
+		vertical-align:middle;
+		background-color:Moccasin;
+		font-size:14px; 
+		color:olive;
+	}
+}
+</style>
+
+</head>
+
+
+
+<body>
+<div style="vertical-align:top; float:right; position:fixed;">
+
+<form action="javascript:draw_sierpinski_triangle();">
+ Radius:
+  <input type="range" id="radius" name="radius" min="1" max="100" value="10">&nbsp;
+ Iterations:
+  <select name="iterations" id="iterations" autofocus>
+   <option value=10>10</option>
+   <option value=100>100</option>
+   <option value=1000 selected>1000</option>
+   <option value=10000>10000</option>
+  </select>&nbsp;
+ Width:
+  <select name="width" id="width">
+   <option value=256>256</option>
+   <option value=512>512</option>
+   <option value=1024 selected>1024</option>
+   <option value=2048>2048</option>
+  </select>&nbsp;
+  Edges:
+  <input type="radio" name="show-edges" id="show-edges" value="white" checked><img src="image/border-white.png" style="vertical-align:middle;">
+  <input type="radio" name="show-edges" id="show-edges" value="black" ><img src="image/border-black.png" style="vertical-align:middle;">&nbsp;
+  <input type="radio" name="show-edges" id="show-edges" value="" ><img src="image/border-none.png" style="vertical-align:middle;">&nbsp;
+ Fill:
+  <input type="checkbox" id="show-fill" name="show-fill" checked="true" value="1">
+<!--
+  <input type="radio" name="show-fill" id="show-fill" value="1" checked>■
+  <input type="radio" name="show-fill" id="show-fill" value="0">□&nbsp;&nbsp;
+-->
+<button type="button" onclick="restart();">RESET</button>
+</form>
+
+</div>
+
+<br/><br/>
+
+<svg id="svg" x="-10" y="0" width="2248px" height="2100" style="background-color: #000;"></svg>
+
+<script>handle_touches_or_clicks(svg);</script>
+
+</body>
+
+
+
+</html>
