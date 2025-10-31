@@ -76,7 +76,12 @@ function drawTriangle(coords,iteration) {
 	}
 	shape.setAttributeNS(null, "stroke-linejoin", "bevel");
 	shape.setAttributeNS(null, "stroke", color_for(iteration));
-	svg.appendChild(shape);
+
+//	svg.appendChild(shape);
+    function drawAnimated() {
+		svg.appendChild(shape);
+	}
+	requestAnimationFrame(drawAnimated);
 }
 
 function half_way_between(v1,v2) {
@@ -171,7 +176,7 @@ function record_touches_or_clicks(object) {
   <input type="radio" name="show-fill" id="show-fill" value="0">no&nbsp;
  -->
   &nbsp;&nbsp;
-  <button type="button" onclick="clear_svg();">wipe</button>&nbsp;&nbsp;
+  <button type="button" onclick="clear_svg();">anim</button>&nbsp;&nbsp;
   <button type="button" onclick="restart()">RESET</button>
  </form>
 </div>
