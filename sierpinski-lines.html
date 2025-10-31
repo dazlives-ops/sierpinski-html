@@ -25,7 +25,7 @@ function draw_sierpinski_triangle() {
 }
 
 function draw_inverted_triangle_within(Ax,Ay,Bx,By,Cx,Cy,iteration,iterations) {
-	return function drawIt(timestamp) {
+//	return function drawIt(timestamp) {
 		var ABx = half_way_between(Ax,Bx), ABy = half_way_between(Ay,By);
 		var BCx = half_way_between(Bx,Cx), BCy = half_way_between(Ay,By);
 		var CAx = half_way_between(Cx,Ax), CAy = half_way_between(Cy,Ay);
@@ -45,7 +45,7 @@ function draw_inverted_triangle_within(Ax,Ay,Bx,By,Cx,Cy,iteration,iterations) {
 		//setTimeout(() => draw_inverted_triangle_within(Ax,Ay,ABx,ABy,CAx,CAy,iteration,iterations), 0);
 		//setTimeout(() => draw_inverted_triangle_within(ABx,ABy,Bx,By,BCx,BCy,iteration,iterations), 0);
 		//setTimeout(() => draw_inverted_triangle_within(CAx,CAy,BCx,BCy,Cx,Cy,iteration,iterations), 0);
-	}	
+//	}	
 }
 
 function color_for(iteration) {
@@ -166,7 +166,7 @@ function record_touches_or_clicks(object) {
   <input type="radio" name="show-fill" id="show-fill" value="0">no&nbsp;
  -->
   &nbsp;&nbsp;
-  <button type="button" onclick="clear_svg();">let</button>&nbsp;&nbsp;
+  <button type="button" onclick="clear_svg();">remove</button>&nbsp;&nbsp;
   <button type="button" onclick="restart()">RESET</button>
  </form>
 </div>
