@@ -7,6 +7,7 @@
 <script>
 // ←←← MOVED SVG REFERENCE TO TOP (so clear_svg() can use it)
 //var svg = document.getElementById('svg');
+let anim;
 	
 function draw_sierpinski_triangle() {
 	var width = get_selected("width");
@@ -165,7 +166,7 @@ function record_touches_or_clicks(object) {
   <input type="radio" name="show-fill" id="show-fill" value="0">no&nbsp;
  -->
   &nbsp;&nbsp;
-  <button type="button" onclick="clear_svg();">binds</button>&nbsp;&nbsp;
+  <button type="button" onclick="clear_svg();">let</button>&nbsp;&nbsp;
   <button type="button" onclick="restart()">RESET</button>
  </form>
 </div>
