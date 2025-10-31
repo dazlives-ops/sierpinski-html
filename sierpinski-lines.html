@@ -32,13 +32,13 @@ function draw_inverted_triangle_within(Ax,Ay,Bx,By,Cx,Cy,iteration,iterations) {
 		drawTriangle(coords,iteration); 
 		return; 
 	}
-	//draw_inverted_triangle_within(Ax,Ay,ABx,ABy,CAx,CAy,iteration,iterations);
-	//draw_inverted_triangle_within(ABx,ABy,Bx,By,BCx,BCy,iteration,iterations);
-	//draw_inverted_triangle_within(CAx,CAy,BCx,BCy,Cx,Cy,iteration,iterations);
+	requestAnimationFrame(draw_inverted_triangle_within(Ax,Ay,ABx,ABy,CAx,CAy,iteration,iterations));
+	requestAnimationFrame(draw_inverted_triangle_within(ABx,ABy,Bx,By,BCx,BCy,iteration,iterations));
+	requestAnimationFrame(draw_inverted_triangle_within(CAx,CAy,BCx,BCy,Cx,Cy,iteration,iterations));
 	// ←←← ONLY CHANGE: yield to browser with setTimeout(..., 0)
-	setTimeout(() => draw_inverted_triangle_within(Ax,Ay,ABx,ABy,CAx,CAy,iteration,iterations), 0);
-	setTimeout(() => draw_inverted_triangle_within(ABx,ABy,Bx,By,BCx,BCy,iteration,iterations), 0);
-	setTimeout(() => draw_inverted_triangle_within(CAx,CAy,BCx,BCy,Cx,Cy,iteration,iterations), 0);
+	//setTimeout(() => draw_inverted_triangle_within(Ax,Ay,ABx,ABy,CAx,CAy,iteration,iterations), 0);
+	//setTimeout(() => draw_inverted_triangle_within(ABx,ABy,Bx,By,BCx,BCy,iteration,iterations), 0);
+	//setTimeout(() => draw_inverted_triangle_within(CAx,CAy,BCx,BCy,Cx,Cy,iteration,iterations), 0);
 }
 
 function color_for(iteration) {
@@ -159,7 +159,7 @@ function record_touches_or_clicks(object) {
   <input type="radio" name="show-fill" id="show-fill" value="0">no&nbsp;
  -->
   &nbsp;&nbsp;
-  <button type="button" onclick="clear_svg();">clean</button>&nbsp;&nbsp;
+  <button type="button" onclick="clear_svg();">scrub</button>&nbsp;&nbsp;
   <button type="button" onclick="restart()">RESET</button>
  </form>
 </div>
