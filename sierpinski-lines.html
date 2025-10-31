@@ -19,7 +19,7 @@ function draw_sierpinski_triangle() {
 		drawTriangle(coords,0); 
 		return; 
 	}
-	draw_inverted_triangle_within(Ax,Ay,Bx,By,Cx,Cy,0,iterations);
+	requestAnimationFrame(draw_inverted_triangle_within(Ax,Ay,Bx,By,Cx,Cy,0,iterations));
 }
 
 function draw_inverted_triangle_within(Ax,Ay,Bx,By,Cx,Cy,iteration,iterations) {
