@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script>
 // ←←← MOVED SVG REFERENCE TO TOP (so clear_svg() can use it)
-var svg = document.getElementById('svg');
+//var svg = document.getElementById('svg');
 	
 function draw_sierpinski_triangle() {
 	var width = get_selected("width");
@@ -54,7 +54,7 @@ function fillColour() {
 
 function drawTriangle(coords,iteration) {
 	var svgns = "http://www.w3.org/2000/svg";
-	// var svg = document.getElementById('svg');
+	var svg = document.getElementById('svg');
 	var shape = document.createElementNS(svgns, "polyline");
 	shape.setAttributeNS(null, "points", coords);
 //	shape.setAttributeNS(null, "fill", "none");
@@ -82,6 +82,7 @@ function get_selected(dropdown) {
 
 function clear_svg() {  // this method is slow if lots of images have been drawn
         // while (svg.lastChild) { svg.removeChild(svg.lastChild); }
+	var svg = document.getElementById('svg');
 	    svg.innerHTML = '';  // ←←← FASTER & CLEANER
         var iterations = parseInt(document.getElementById("iterations").value);
 	if (iterations >= 13) {
@@ -157,7 +158,7 @@ function record_touches_or_clicks(object) {
   <input type="radio" name="show-fill" id="show-fill" value="0">no&nbsp;
  -->
   &nbsp;&nbsp;
-  <button type="button" onclick="clear_svg();">wipe</button>&nbsp;&nbsp;
+  <button type="button" onclick="clear_svg();">clear</button>&nbsp;&nbsp;
   <button type="button" onclick="restart()">RESET</button>
  </form>
 </div>
