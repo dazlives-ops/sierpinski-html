@@ -10,7 +10,8 @@ function draw_sierpinski_triangle() {
 	var width = parseInt(document.getElementById("width").value);
 	var edgeColour = get_edge_choice();
 	var height = height_for_equilateral_triangle_of_width(width);
-	var redCornerX = 0, redCornerY = height, greenCornerX = width/2, greenCornerY = 0, blueCornerX = width, blueCornerY = height, centroidX = width/2, centroidY = height*(2/3);
+/*	var redCornerX = 0, redCornerY = height, greenCornerX = width/2, greenCornerY = 0, blueCornerX = width, blueCornerY = height, centroidX = width/2, centroidY = height*(2/3); */
+	var redCornerX = 0, redCornerY = height - radius*2, greenCornerX = width/2 - radius, greenCornerY = 0, blueCornerX = width - radius*2, blueCornerY = height - radius*2;
 	var newX = redCornerX, newY = redCornerY;
 	var svgns = "http://www.w3.org/2000/svg";
 	var svg = document.getElementById('svg');
