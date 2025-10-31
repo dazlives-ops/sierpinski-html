@@ -87,8 +87,8 @@ function get_selected(dropdown) {
 
 function clear_svg() {  // this method is slow if lots of images have been drawn
         // while (svg.lastChild) { svg.removeChild(svg.lastChild); }
-	var svg = document.getElementById('svg');
-	    svg.innerHTML = '';  // ←←← FASTER & CLEANER
+//	var svg = document.getElementById('svg');
+	//    svg.innerHTML = '';  // ←←← FASTER & CLEANER
         var iterations = parseInt(document.getElementById("iterations").value);
 	if (iterations >= 13) {
         	document.getElementById("iterations").value = 0;
@@ -163,7 +163,7 @@ function record_touches_or_clicks(object) {
   <input type="radio" name="show-fill" id="show-fill" value="0">no&nbsp;
  -->
   &nbsp;&nbsp;
-  <button type="button" onclick="clear_svg();">clear</button>&nbsp;&nbsp;
+  <button type="button" onclick="clear_svg();">swipe</button>&nbsp;&nbsp;
   <button type="button" onclick="restart()">RESET</button>
  </form>
 </div>
