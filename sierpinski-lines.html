@@ -21,7 +21,7 @@ function draw_sierpinski_triangle() {
 		return; 
 	}
 	//anim = 
-	draw_inverted_triangle_within.bind(Ax,Ay,Bx,By,Cx,Cy,0,iterations);
+	draw_inverted_triangle_within(Ax,Ay,Bx,By,Cx,Cy,0,iterations);
 	//requestAnimationFrame(anim);
 }
 
@@ -37,13 +37,13 @@ function draw_inverted_triangle_within(Ax,Ay,Bx,By,Cx,Cy,iteration,iterations) {
 			return; 
 		}
 		//anim = 
-	draw_inverted_triangle_within.bind(Ax,Ay,ABx,ABy,CAx,CAy,iteration,iterations);
+	draw_inverted_triangle_within(Ax,Ay,ABx,ABy,CAx,CAy,iteration,iterations);
 		//requestAnimationFrame(anim);
 		//anim = 
-	draw_inverted_triangle_within.bind(ABx,ABy,Bx,By,BCx,BCy,iteration,iterations);
+	draw_inverted_triangle_within(ABx,ABy,Bx,By,BCx,BCy,iteration,iterations);
 		//requestAnimationFrame(anim);
 		//anim = 
-	draw_inverted_triangle_within.bind(CAx,CAy,BCx,BCy,Cx,Cy,iteration,iterations);
+	draw_inverted_triangle_within(CAx,CAy,BCx,BCy,Cx,Cy,iteration,iterations);
 		//requestAnimationFrame(anim);
 		// ←←← ONLY CHANGE: yield to browser with setTimeout(..., 0)
 		//setTimeout(() => draw_inverted_triangle_within(Ax,Ay,ABx,ABy,CAx,CAy,iteration,iterations), 0);
