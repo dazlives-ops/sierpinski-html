@@ -19,26 +19,29 @@ function draw_sierpinski_triangle() {
 		drawTriangle(coords,0); 
 		return; 
 	}
-	requestAnimationFrame(draw_inverted_triangle_within(Ax,Ay,Bx,By,Cx,Cy,0,iterations));
+	anim = draw_inverted_triangle_within(Ax,Ay,Bx,By,Cx,Cy,0,iterations);
+	requestAnimationFrame(anim);
 }
 
 function draw_inverted_triangle_within(Ax,Ay,Bx,By,Cx,Cy,iteration,iterations) {
-	var ABx = half_way_between(Ax,Bx), ABy = half_way_between(Ay,By);
-	var BCx = half_way_between(Bx,Cx), BCy = half_way_between(Ay,By);
-	var CAx = half_way_between(Cx,Ax), CAy = half_way_between(Cy,Ay);
-	var coords = ""+ABx+","+ABy+" "+BCx+","+BCy+" "+CAx+","+CAy+" "+ABx+","+ABy+" "+BCx+","+BCy;
-	iteration++;
-	if (iteration >= iterations) { 
-		drawTriangle(coords,iteration); 
-		return; 
-	}
-	draw_inverted_triangle_within(Ax,Ay,ABx,ABy,CAx,CAy,iteration,iterations);
-	draw_inverted_triangle_within(ABx,ABy,Bx,By,BCx,BCy,iteration,iterations);
-	draw_inverted_triangle_within(CAx,CAy,BCx,BCy,Cx,Cy,iteration,iterations);
-	// ←←← ONLY CHANGE: yield to browser with setTimeout(..., 0)
-	//setTimeout(() => draw_inverted_triangle_within(Ax,Ay,ABx,ABy,CAx,CAy,iteration,iterations), 0);
-	//setTimeout(() => draw_inverted_triangle_within(ABx,ABy,Bx,By,BCx,BCy,iteration,iterations), 0);
-	//setTimeout(() => draw_inverted_triangle_within(CAx,CAy,BCx,BCy,Cx,Cy,iteration,iterations), 0);
+	return function drawIt(timestamp) {
+		var ABx = half_way_between(Ax,Bx), ABy = half_way_between(Ay,By);
+		var BCx = half_way_between(Bx,Cx), BCy = half_way_between(Ay,By);
+		var CAx = half_way_between(Cx,Ax), CAy = half_way_between(Cy,Ay);
+		var coords = ""+ABx+","+ABy+" "+BCx+","+BCy+" "+CAx+","+CAy+" "+ABx+","+ABy+" "+BCx+","+BCy;
+		iteration++;
+		if (iteration >= iterations) { 
+			drawTriangle(coords,iteration); 
+			return; 
+		}
+		draw_inverted_triangle_within(Ax,Ay,ABx,ABy,CAx,CAy,iteration,iterations);
+		draw_inverted_triangle_within(ABx,ABy,Bx,By,BCx,BCy,iteration,iterations);
+		draw_inverted_triangle_within(CAx,CAy,BCx,BCy,Cx,Cy,iteration,iterations);
+		// ←←← ONLY CHANGE: yield to browser with setTimeout(..., 0)
+		//setTimeout(() => draw_inverted_triangle_within(Ax,Ay,ABx,ABy,CAx,CAy,iteration,iterations), 0);
+		//setTimeout(() => draw_inverted_triangle_within(ABx,ABy,Bx,By,BCx,BCy,iteration,iterations), 0);
+		//setTimeout(() => draw_inverted_triangle_within(CAx,CAy,BCx,BCy,Cx,Cy,iteration,iterations), 0);
+	}	
 }
 
 function color_for(iteration) {
@@ -159,7 +162,7 @@ function record_touches_or_clicks(object) {
   <input type="radio" name="show-fill" id="show-fill" value="0">no&nbsp;
  -->
   &nbsp;&nbsp;
-  <button type="button" onclick="clear_svg();">1only</button>&nbsp;&nbsp;
+  <button type="button" onclick="clear_svg();">anim1only</button>&nbsp;&nbsp;
   <button type="button" onclick="restart()">RESET</button>
  </form>
 </div>
