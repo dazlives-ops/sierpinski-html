@@ -22,6 +22,7 @@ function draw_sierpinski_triangle() {
 	}
 	//anim = 
 	draw_inverted_triangle_within(Ax,Ay,Bx,By,Cx,Cy,0,iterations);
+	// rAF can only receive name of function without paramaters!
 	//requestAnimationFrame(anim);
 }
 
@@ -170,7 +171,7 @@ function record_touches_or_clicks(object) {
   <input type="radio" name="show-fill" id="show-fill" value="0">no&nbsp;
  -->
   &nbsp;&nbsp;
-  <button type="button" onclick="clear_svg();">nobinds</button>&nbsp;&nbsp;
+  <button type="button" onclick="clear_svg();">wipe</button>&nbsp;&nbsp;
   <button type="button" onclick="restart()">RESET</button>
  </form>
 </div>
