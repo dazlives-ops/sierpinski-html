@@ -20,8 +20,9 @@ function draw_sierpinski_triangle() {
 		drawTriangle(coords,0); 
 		return; 
 	}
-	anim = draw_inverted_triangle_within.bind(Ax,Ay,Bx,By,Cx,Cy,0,iterations);
-	requestAnimationFrame(anim);
+	//anim = 
+	draw_inverted_triangle_within.bind(Ax,Ay,Bx,By,Cx,Cy,0,iterations);
+	//requestAnimationFrame(anim);
 }
 
 function draw_inverted_triangle_within(Ax,Ay,Bx,By,Cx,Cy,iteration,iterations) {
@@ -35,12 +36,15 @@ function draw_inverted_triangle_within(Ax,Ay,Bx,By,Cx,Cy,iteration,iterations) {
 			drawTriangle(coords,iteration); 
 			return; 
 		}
-		anim = draw_inverted_triangle_within.bind(Ax,Ay,ABx,ABy,CAx,CAy,iteration,iterations);
-		requestAnimationFrame(anim);
-		anim = draw_inverted_triangle_within.bind(ABx,ABy,Bx,By,BCx,BCy,iteration,iterations);
-		requestAnimationFrame(anim);
-		anim = draw_inverted_triangle_within.bind(CAx,CAy,BCx,BCy,Cx,Cy,iteration,iterations);
-		requestAnimationFrame(anim);
+		//anim = 
+	draw_inverted_triangle_within.bind(Ax,Ay,ABx,ABy,CAx,CAy,iteration,iterations);
+		//requestAnimationFrame(anim);
+		//anim = 
+	draw_inverted_triangle_within.bind(ABx,ABy,Bx,By,BCx,BCy,iteration,iterations);
+		//requestAnimationFrame(anim);
+		//anim = 
+	draw_inverted_triangle_within.bind(CAx,CAy,BCx,BCy,Cx,Cy,iteration,iterations);
+		//requestAnimationFrame(anim);
 		// ←←← ONLY CHANGE: yield to browser with setTimeout(..., 0)
 		//setTimeout(() => draw_inverted_triangle_within(Ax,Ay,ABx,ABy,CAx,CAy,iteration,iterations), 0);
 		//setTimeout(() => draw_inverted_triangle_within(ABx,ABy,Bx,By,BCx,BCy,iteration,iterations), 0);
@@ -166,7 +170,7 @@ function record_touches_or_clicks(object) {
   <input type="radio" name="show-fill" id="show-fill" value="0">no&nbsp;
  -->
   &nbsp;&nbsp;
-  <button type="button" onclick="clear_svg();">remove</button>&nbsp;&nbsp;
+  <button type="button" onclick="clear_svg();">nowait</button>&nbsp;&nbsp;
   <button type="button" onclick="restart()">RESET</button>
  </form>
 </div>
