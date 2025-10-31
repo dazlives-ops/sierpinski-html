@@ -19,7 +19,7 @@ function draw_sierpinski_triangle() {
 		drawTriangle(coords,0); 
 		return; 
 	}
-	draw_inverted_triangle_within(Ax,Ay,Bx,By,Cx,Cy,0,iterations);
+	requestAnimationFrame(draw_inverted_triangle_within(Ax,Ay,Bx,By,Cx,Cy,0,iterations));
 }
 
 function draw_inverted_triangle_within(Ax,Ay,Bx,By,Cx,Cy,iteration,iterations) {
@@ -159,7 +159,7 @@ function record_touches_or_clicks(object) {
   <input type="radio" name="show-fill" id="show-fill" value="0">no&nbsp;
  -->
   &nbsp;&nbsp;
-  <button type="button" onclick="clear_svg();">gone</button>&nbsp;&nbsp;
+  <button type="button" onclick="clear_svg();">1only</button>&nbsp;&nbsp;
   <button type="button" onclick="restart()">RESET</button>
  </form>
 </div>
