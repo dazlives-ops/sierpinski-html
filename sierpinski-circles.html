@@ -15,7 +15,7 @@ function draw_sierpinski_triangle() {
 	var height = height_for_equilateral_triangle_of_width(width);
 /* determine corner positions */
 /*	var redCornerX = 0, redCornerY = height, greenCornerX = width/2, greenCornerY = 0, blueCornerX = width, blueCornerY = height; */
-	var redCornerX = 0 + radius, redCornerY = height - radius, greenCornerX = width/2, greenCornerY = 0 + radius, blueCornerX = width - radius, blueCornerY = height - radius;
+	var redCornerX = 0, redCornerY = height - radius*2, greenCornerX = width/2 - radius, greenCornerY = 0, blueCornerX = width - radius*2, blueCornerY = height - radius*2;
 /* start at a corner */
 	var newX = redCornerX, newY = redCornerY;
 	var svgns = "http://www.w3.org/2000/svg";
@@ -163,4 +163,5 @@ body {
 
 
 </html>
+
 
