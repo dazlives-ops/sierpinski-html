@@ -6,8 +6,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script>
 // ←←← MOVED SVG REFERENCE TO TOP (so clear_svg() can use it)
+//but would have to wait until DOM loaded before doing!
 //var svg = document.getElementById('svg');
-let anim;
 	
 function draw_sierpinski_triangle() {
 	var width = get_selected("width");
@@ -54,7 +54,7 @@ function draw_inverted_triangle_within(Ax,Ay,Bx,By,Cx,Cy,iteration,iterations) {
 }
 
 function color_for(iteration) {
-	color = ["red","lime","blue","maroon","green","navy","yellow","aqua","fuchsia","olive","teal","purple","silver","black"];
+	color = ["red","lime","blue","maroon","green","navy","yellow","aqua","fuchsia","olive","teal","silver","purple","black"];
 	return color[iteration];
 }
 
@@ -98,7 +98,7 @@ function clear_svg() {  // this method is slow if lots of images have been drawn
 	var svg = document.getElementById('svg');
 	svg.innerHTML = '';  // ←←← FASTER & CLEANER
     var iterations = parseInt(document.getElementById("iterations").value);
-	if (iterations >= 13) {
+	if (iterations >= 11) {
         	document.getElementById("iterations").value = 0;
 	}
 }
@@ -154,8 +154,6 @@ function record_touches_or_clicks(object) {
    <option value=9>9</option> 
    <option value=10>10</option> 
    <option value=11>11</option> 
-   <option value=12>12</option> 
-   <option value=12>12</option> 
   </select>&nbsp;
   Width:      
   <select name="width" id="width"> 
@@ -171,7 +169,7 @@ function record_touches_or_clicks(object) {
   <input type="radio" name="show-fill" id="show-fill" value="0">no&nbsp;
  -->
   &nbsp;&nbsp;
-  <button type="button" onclick="clear_svg();">clean</button>&nbsp;&nbsp;
+  <button type="button" onclick="clear_svg();">wipe</button>&nbsp;&nbsp;
   <button type="button" onclick="restart()">RESET</button>
  </form>
 </div>
